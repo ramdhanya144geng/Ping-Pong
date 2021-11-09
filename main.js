@@ -20,7 +20,15 @@ var ball = {
     dx:3,
     dy:3
 }
+rightwristY = 0;
+rightwristX = 0;
+scorerightwrist = 0;
+game_status = "";
 
+function preload() {
+  ball_touch_paddel1 = loadSound("ball_touch_paddel.wav");
+  missed = loadSound("missed.wav");
+}
 function setup(){
   var canvas =  createCanvas(700,600);
   canvas.parent("canvas");
@@ -51,8 +59,8 @@ function modalLoaded() {
 
   function startGame()
   {
-    game_status = "start";
-    document.getElementById("status").innerHTML = "Game is Loaded";
+    GameStatus = "start";
+    document.getElementById("status").innerHTML = "Game Is Loading";
   }
 
 function draw(){
