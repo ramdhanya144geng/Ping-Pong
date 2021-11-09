@@ -23,8 +23,37 @@ var ball = {
 
 function setup(){
   var canvas =  createCanvas(700,600);
+  canvas.parent("canvas");
+
+  video = createCapture(VIDEO);
+  video.size(800,400);
+
+  poseNet = ml5.poseNet(video, modelLoaded);
+	poseNet.on('pose', gotPoses);
+
 }
 
+function modalLoaded() {
+	console.log('Model Loaded!');
+  }
+
+  function gotPoses(results)
+  {
+	if(results.length > 0)
+	{
+		console.log(results);
+		rightwristX = results[0].pose.nose.x;
+	  rightwristY = results[0].pose.nose.y;
+    scorerightwrist = results[0].pose.keypoints[10].score;
+    console.log(scorerightwrist);
+	}
+  }
+
+  function startGame()
+  {
+    game_status = "start";
+    document.getElementById("status").innerHTML = "Game is Loaded";
+  }
 
 function draw(){
 
@@ -37,7 +66,16 @@ function draw(){
  fill("black");
  stroke("black");
  rect(0,0,20,700);
- 
+if (scorerightwrist > 0.2)
+{
+  fill("red");
+  stroke("red");
+  circle(rightwristX, rightwristY, 30);
+}
+if (game_status =="start")
+{
+  document.getElementById("status").innerHTML = "Game is Loaded";
+
    //funtion paddleInCanvas call 
    paddleInCanvas();
  
@@ -65,6 +103,7 @@ function draw(){
    
    //function move call which in very important
     move();
+}
 }
 
 
@@ -161,4 +200,10 @@ function paddleInCanvas(){
   if(mouseY < 0){
     mouseY =0;
   }  
+}
+
+function restart()
+{
+  pcscore = 0;
+  loop();
 }

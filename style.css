@@ -1,6 +1,9 @@
-.heading
+body
 {
-width: 1350px;
+    background-size: cover;
+}.heading
+{
+width: 1352px;
 text-align: left;
 }
 
@@ -21,4 +24,9 @@ text-align: left;
 #start, #status
 {
     font-size: 22px;
+}
+
+h4
+{
+    color: black;
 }
